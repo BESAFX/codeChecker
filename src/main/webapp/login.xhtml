@@ -1,0 +1,164 @@
+﻿<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:th="http://www.thymeleaf.org">
+
+
+<!-- Mirrored from p-pixels.com/icou/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 Jan 2018 09:50:25 GMT -->
+<head>
+    <title>Code Checker</title>
+    <meta charset="UTF-8"/>
+    <meta name="author" content="p-pixels"/>
+    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- favicon -->
+
+    <!-- Custom Template CSS -->
+    <link rel="stylesheet" href="css/bootstrap.css"/>
+    <link rel="stylesheet" href="css/font-awesome.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/owl.carousel.min.css"/>
+    
+ 
+ 
+</head>
+
+<body>
+    
+        <!-- Preloader -->
+        <div class="preloader">
+            <div class="spinner spinner-pulse"></div>
+        </div>
+        <!-- / Preloader -->
+
+        <!-- Header -->
+
+    
+
+    <div class="login-wrapper ">
+        <!-- START Login Background Pic Wrapper-->
+        <div class="bg-pic">
+            <!-- START Background Pic-->
+            <img src="assets/img/login-bg.jpg" data-src="assets/img/login-bg.jpg" alt="" class="lazy"/>
+            <!-- END Background Pic-->
+            <!-- START Background Caption-->
+            <div class="bg-caption pull-bottom ">
+               
+                <p >
+                    Copyright 2018 @RMGS.co
+                </p>
+            </div>
+            <!-- END Background Caption-->
+        </div>
+        <!-- END Login Background Pic Wrapper-->
+        <!-- START Login Right Container-->
+        <div class="col-sm-5 login-container bg-white">
+            <div class="marg-b-80">
+                <img src="assets/img/LOGO-dark.png" alt="logo"  /></div>
+      
+                <!-- START Login Form -->
+                <form id="form-login" class="p-t-15" role="form" th:action="@{/index.jsf}" method="post" >
+                    <!-- START Form Control-->
+                    <div class="form-group form-group-default">
+                      
+                        <div class="controls">
+                            <input type="text" name="username" placeholder="User Name" class="form-control" required="" aria-required="true"/>
+                        </div>
+                    </div>
+                    <!-- END Form Control-->
+                    <!-- START Form Control-->
+                    <div class="form-group form-group-default">
+                 
+                        <div class="controls">
+                            <input type="password" class="form-control" name="password" placeholder="password" required="" aria-required="true"/>
+                        </div>
+                    </div>
+                    <!-- START Form Control-->
+                    <div class="row">
+
+                        <div class="col-md-6 col-xs-12 text-xs-center text-sm-left">
+                            <div class="form-group form-md-checkboxes">
+                                <div class="row">
+                                    <div class="col-md-1 col-xs-2">
+                                        <div class="md-checkbox-list">
+                                            <div class="md-checkbox">
+                                                <input type="checkbox" name="remember[]" value="1" class="md-check ng-pristine ng-untouched ng-valid ng-empty" id="remember" ng-model="vm.remember"/>
+                                                <label for="remember">
+                                                    <span></span>
+                                                    <span class="check"></span>
+                                                    <span class="box"></span>
+                                                </label>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <label class="col-md-10 col-xs-10 control-label" for="remember" data-on="YES" data-off="NO"><span class=" pull-left">Remember me</span></label>
+
+                                </div>
+                            </div>
+
+
+
+
+
+                        </div>
+                        
+                        <div class="col-md-6 forget">
+                            <a href="#" class="color-white-small">Forget Your Password?</a>
+                        </div>
+                    </div>
+                    <!-- END Form Control-->
+                    <button class="btn btn-primary pull-left marg-t-50 " type="submit">Sign in</button>
+
+                    <button class="btn btn-primary pull-right marg-t-50 " type="submit">Register</button>
+                </form>
+                <!--END Login Form-->
+                <div class="pull-bottom sm-pull-bottom">
+                    <div class="">
+                        <div class="col-sm-3 col-md-2 no-padding">
+                            <img alt="" class="m-t-5" data-src="assets/img/demo/pages_icon.png" data-src-retina="assets/img/demo/pages_icon_2x.png" height="60" src="assets/img/demo/pages_icon.png" width="60"/>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+      
+    <div style="position:absolute; bottom:0; width:100%" class="footer_copyright">
+        <div class="container-fluid">
+            <div class="footer_copyright_inner">
+                <div class="pull-left">
+                    <p>
+                        Copyright © Carpooling
+                        <script>document.write(new Date().getFullYear());</script>. All rights reserved.
+                    </p>
+                </div>
+                <div class="pull-right">
+                    <p> Powered  by: <a href="#">RMGS</a> </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    
+        <script src="js/jquery.min.js"></script>
+        <script src="js/tether.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/superslide/jquery.superslides.js"></script>
+        <script src="js/owl.carousel.min.js"></script>
+        <script src="js/wow/wow.min.js"></script>
+  
+        <!-- Custom JS -->
+    <script src="js/custom.js"></script>
+
+</body>
+
+
+
+
+<!-- Mirrored from p-pixels.com/icou/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 Jan 2018 09:52:00 GMT -->
+</html>

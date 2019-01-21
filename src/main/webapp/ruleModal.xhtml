@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+  <head>
+     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+  </head>
+
+      <!-- **********************************************************************************************************************************************************
+      MAIN CONTENT
+      *********************************************************************************************************************************************************** -->
+
+	  <div class="modal fade" data-backdrop="static" id="ruleModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+	  
+						  <div class="modal-dialog">
+						  	 <h:form id="editForm">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						 
+						        <h:outputLabel class="modal-title"  value="Edit Rule" ></h:outputLabel>
+						        
+						      </div>
+						     
+						      <div class="modal-body">
+						    
+						  <h2> #{codingRulesBean.details.name}</h2>
+						    
+						    
+						    
+						    
+						    
+						    
+						    
+						    
+						    
+						    
+						    
+						    
+						   <ul>
+                    <li>#{codingRulesBean.details.type}</li>
+                <li>#{codingRulesBean.details.severity}</li>
+                <li>Constant/issue: #{codingRulesBean.details.defaultDebtRemFnOffset}</li>
+                <li>#{codingRulesBean.details.langName}</li>
+
+                <li>
+                   <h:selectManyListbox class="multiSelect" value="#{codingRulesBean.details.tags}">
+   			<f:selectItems value="#{codingRulesBean.tags}" var="tag"
+   			itemLabel="#{tag}" itemValue="#{tag}" />
+   		</h:selectManyListbox>
+
+               </li>
+                
+                </ul>
+                   
+  
+						    
+						    
+						          <div class="form-group">
+							       
+								      <h:outputLabel styleClass="" escape="false" value="#{codingRulesBean.details.htmlDesc}"/> 
+								    
+							      </div>
+							      
+							       <div class="form-group">
+							       
+								      <h:outputLabel styleClass="col-sm-3 control-label" value="Extra Info"/> 
+								       <div class="col-sm-9">
+								      <h:inputTextarea  class="form-control" value="#{codingRulesBean.details.mdNote}"  id="note"/>
+								      </div>
+							      </div>
+						    
+						       <div class="modal-footer"> 
+						        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+									
+          						     <h:commandButton oncomplete="if (#{!facesContext.validationFailed}) $('#ruleModal').dialog('close'); $(.multiSelect').multiselect();" id="updatebtn" action = "#{codingRulesBean.proccessModalAction}"  value="Update" class="btn btn-primary"  >
+          						     <f:ajax execute="@form" render="@form" onevent="showModal" onerror="viewTest"/>
+          						     </h:commandButton>
+          						     
+          						     <!-- <h:outputScript rendered="#{not empty param[addbtn] and not facesContext.validationFailed}">
+          						      <script language="JavaScript" type="text/javascript">
+    									$("#shipmentModal").dialog("close");
+    									</script>
+									</h:outputScript> -->
+          						     
+          						     
+						       </div>
+						      
+		                      
+		         			 </div>
+						    </div>
+						    </h:form>
+						  </div>
+						  
+						</div>     				
+
+
+
+</html>

@@ -1,0 +1,547 @@
+﻿<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+		 >
+
+<!-- Mirrored from p-pixels.com/icou/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 Jan 2018 09:50:25 GMT -->
+<h:head>
+    <title>Code Checker</title>
+    <meta charset="UTF-8"/>
+    <meta name="author" content="p-pixels"/>
+    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- favicon -->
+
+    <!-- Custom Template CSS -->
+    <link rel="stylesheet" href="css/bootstrap.css"/>
+    <link rel="stylesheet" href="css/font-awesome.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/owl.carousel.min.css"/>
+    <link rel="stylesheet" href="css/bootstrap-multiselect.css"/>
+ 
+ 
+</h:head>
+
+<body onload="#{codingRulesBean.init()}">
+    
+        <!-- Preloader -->
+        <div class="preloader">
+            <div class="spinner spinner-pulse"></div>
+        </div>
+        <!-- / Preloader -->
+
+        <!-- Header -->
+
+    <header>
+        <div class="top-bar">
+
+                     <div class="col-sm-12">
+                        <div class=" top-number">
+                 
+                     <a class="toggle-fullscreen color-white" href="javascript:;"> <i class="fa fa-arrows" aria-hidden="true"></i> </a>
+                            <a class=" color-white" href=""><i class="fa fa-bell" aria-hidden="true"></i> </a>
+
+                        </div>
+                        <div class="pull-right txt-right ">
+                            <a class="color-white" href="">Welcome User </a>
+                           <a class="logout" href="/logout" th:href="@{/logout}">Log
+					Out</a>
+                        </div>
+                        
+                      
+                    </div>
+      
+        </div>
+    </header>
+
+    <div class="mainmeu-area">
+        <div class="main-menu-wrapper-outer sticky">
+           
+                <div class="mainmenu-bg">
+                    <div class="main-menu-wrapper main-menu-wrapper-2">
+                        <button class="navbar-toggler navbar-toggler-right hidden-lg-up icou-toggler" type="button" data-toggle="collapse" data-target="#icouNavbar" aria-controls="icouNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                            <i class="fa fa-bars" aria-hidden="true"></i>
+                        </button>
+                        <a class="navbar-brand padd-0" href="index-2.html">
+                            <img src="assets/img/logo.PNG"  alt="icou-logo"/>
+                        </a>
+                        <nav class="main-menu navbar navbar-toggleable-md ">
+                            <div class="collapse navbar-collapse" id="icouNavbar">
+                                <ul class="navigation navbar-nav mr-auto mt-2 mt-md-0">
+                                    <li class="main-menu-link "><a href="index.jsf">Home</a></li>
+                                  <ui:fragment rendered="#{request.isUserInRole('ROLE_VIEW_PROJECTS_PRIVILEGE')}">
+                                  <li class="main-menu-link dropdown">
+                                        <a href="#">Projects</a>
+
+                                        <ul>
+                                         <c:forEach items="#{dashbaordBean.dashbaord.components}" var="project">
+                                            <li><a id="#{project.key}" href="#">#{project.key} - #{project.name}</a></li>
+                                           
+                                            </c:forEach>
+                               
+                                        </ul>
+                                        
+                                    </li>
+                                    </ui:fragment>
+                                     <ui:fragment rendered="#{request.isUserInRole('ROLE_VIEW_ALL_ISSUES_PRIVILEGE')}">
+                                    <li class="main-menu-link ">
+                                        <a href="issues.jsf">issues</a>
+                                        
+                                    </li>
+                                    </ui:fragment>
+                                    <ui:fragment rendered="#{request.isUserInRole('ROLE_VIEW_RULES_PRIVILEGE')}">
+                                    <li class="main-menu-link current ">
+                                        <a href="rules.jsf">Rules</a>
+                                        
+                                    </li>
+                                    </ui:fragment>
+                                     <ui:fragment rendered="#{request.isUserInRole('ROLE_VIEW_QUALITY_PRIVILEGE')}">
+                                    <li class="main-menu-link ">
+                                        <a href="qualityProfiles.jsf">Quality Profiles</a>
+                                        
+                                    </li>
+                                    </ui:fragment>
+                                    
+                                     <ui:fragment rendered="#{request.isUserInRole('ROLE_VIEW_ADMIN_PRIVILEGE')}">
+                                     <li class="main-menu-link ">
+                                        <a href="roles.jsf">Administration</a>
+                                        
+                                    </li>
+                                    </ui:fragment>
+                                    
+                                </ul>
+                            </div>
+                        </nav>
+                        <!-- Search and shopping cart area -->
+
+                        <div class="search-area right-80 ">
+                            
+                            <div class="header-search ">
+                                <button class="main-menu-search-button">
+                                    <i class="fa fa-search filter-search"></i>
+                                </button>
+                                <div class="search-content right-0">
+                                   
+                                        <input class="icousearch" type="text" name="icousearch" placeholder="Search..."/>
+                                        <button class="search-content-button" type="submit" id="searchsubmit" value="Search">
+                                            <i class="fa fa-search filter-search"></i>
+                                        </button>
+                              
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- / Search and shopping cart area -->
+                    </div>
+                </div>
+        
+        </div>
+    </div>
+        <!-- / Header -->
+
+  
+        <div class="page-header-bottom-no-header">
+            <div class="container-fluid no-margin">
+                <div class="breadcrumb-wrapper">
+                    <ul class="breadcrumbs">
+                        <li><a href="index-2.html">Home</a></li>
+                        <li><i class="fa fa-angle-right"></i></li>
+                    </ul>
+                </div>
+            </div>
+    </div>
+        <!-- Navbar -->
+        
+<h:form id="searchD">
+    <div class="full-width">
+        
+
+
+       <div class="col-sm-3">
+            <ul id="accordion" class="accordion">
+
+                <c:forEach items="#{codingRulesBean.codingRules.facets}" var="facet">
+    			<ui:fragment rendered="#{facet.property eq 'types'}">
+    			
+    			
+    			
+                
+    			
+                <li class="default open" >
+                    <div class="link"><i class="fa fa-cogs" aria-hidden="true"></i>Type<i class="fa fa-chevron-down"></i></div>
+                    <ul class="submenu">
+                  <c:forEach items="#{facet.values}" var="valCount">
+                 
+                 
+                
+                   <ui:fragment rendered="#{valCount.val eq 'CODE_SMELL'}">
+                        <li>
+                            <a class="photosgurdeep color-black"  href="#"> Code Smell </a> 
+                            
+                            <a class="color-black pull-right" href=""> #{valCount.count} </a>  </li>
+                    </ui:fragment>
+                      <ui:fragment rendered="#{valCount.val eq 'BUG'}">
+                        <li>
+                        
+                            <a class="photosgurdeep color-black" href="#"> Bug  </a><a class="color-black pull-right" href=""> #{valCount.count} </a>
+                        </li>
+                        </ui:fragment>
+                         <ui:fragment rendered="#{valCount.val eq 'VULNERABILITY'}">
+                        <li>
+                            <a class="photosgurdeep color-black" href="#"> Vulnerability  </a><a class="color-black pull-right" href=""> #{valCount.count}</a>
+                        </li>
+                        </ui:fragment>
+                       </c:forEach>
+                    </ul>
+                </li>
+                
+                </ui:fragment>
+				<ui:fragment rendered="#{facet.property eq 'languages'}">
+                <li>
+                    <div class="link"><i class="fa fa-bug fa-lock" aria-hidden="true"></i>Language<i class="fa fa-chevron-down"></i></div>
+                    <ul class="submenu">
+                     <c:forEach items="#{facet.values}" var="valCount">
+                     <ui:fragment rendered="#{valCount.val eq 'java'}">
+                        <li>
+                            <a class="photosgurdeep color-black" href="#"> Java </a>  <a class="color-black pull-right" href=""> #{valCount.count}</a>
+                        </li>
+                        </ui:fragment>
+                        <ui:fragment rendered="#{valCount.val eq 'cs'}">
+                        <li>
+                            <a class="photosgurdeep color-black" href="#"> C#  </a><a class="color-black pull-right" href="">#{valCount.count} </a>
+                        </li>
+                        </ui:fragment>
+                        <ui:fragment rendered="#{valCount.val eq 'py'}">
+                        <li>
+                            <a class="photosgurdeep color-black" href="#"> Python  </a><a class="color-black pull-right" href=""> #{valCount.count}</a>
+                        </li>
+                        </ui:fragment>
+                        <ui:fragment rendered="#{valCount.val eq 'js'}">
+                        <li>
+                            <a class="photosgurdeep color-black" href="#"> JavaScript  </a><a class="color-black pull-right" href=""> #{valCount.count}</a>
+                        </li>
+                        </ui:fragment>
+                        <ui:fragment rendered="#{valCount.val eq 'php'}">
+                        <li>
+                            <a class="photosgurdeep color-black" href="#"> PHP  </a><a class="color-black pull-right" href=""> #{valCount.count}</a>
+                        </li>
+                        </ui:fragment>
+                         <ui:fragment rendered="#{valCount.val eq 'ts'}">
+                        <li>
+                            <a class="photosgurdeep color-black" href="#"> TypeScript  </a><a class="color-black pull-right" href=""> #{valCount.count}</a>
+                        </li>
+                        </ui:fragment>
+                         <ui:fragment rendered="#{valCount.val eq 'xml'}">
+                        <li>
+                            <a class="photosgurdeep color-black" href="#"> XML  </a><a class="color-black pull-right" href=""> #{valCount.count}</a>
+                        </li>
+                        </ui:fragment>
+                        </c:forEach>
+                    </ul>
+                </li>
+                </ui:fragment>
+                
+                <ui:fragment rendered="#{facet.property eq 'tags'}">
+                <li>
+                    <div class="link"><i class="fa fa-lock" aria-hidden="true"></i>Tags<i class="fa fa-chevron-down"></i></div>
+                    <ul class="submenu">
+                     <c:forEach items="#{facet.values}" var="valCount">
+                     
+                       
+                        <li>
+                            <a class="photosgurdeep color-black" href="#"> #{valCount.val}</a> <a class="color-black pull-right" href=""> #{valCount.count}</a>
+                        </li>
+                        </c:forEach>
+                    </ul>
+                </li>
+                </ui:fragment>
+               <ui:fragment rendered="#{facet.property eq 'severities'}">
+                <li> 
+                    <div class="link"><i class="fa fa-wrench" aria-hidden="true"></i>Default Severity <i class="fa fa-chevron-down"></i></div>
+                    <ul class="submenu">
+                    <c:forEach items="#{facet.values}" var="valCount">
+                     <ui:fragment rendered="#{valCount.val eq 'MAJOR'}">
+                        <li>
+                            <a class="photosgurdeep color-black" href="#"> Major </a> <a class="color-black pull-right" href=""> #{valCount.count} </a>
+                        </li>
+                        </ui:fragment>
+                        <ui:fragment rendered="#{valCount.val eq 'MINOR'}">
+                        <li>
+                            <a class="photosgurdeep color-black" href="#"> Minor </a> <a class="color-black pull-right" href=""> #{valCount.count} </a>
+                        </li>
+                        </ui:fragment>
+                         <ui:fragment rendered="#{valCount.val eq 'CRITICAL'}">
+                        <li>
+                            <a class="photosgurdeep color-black" href="#"> Critical </a> <a class="color-black pull-right" href=""> #{valCount.count} </a>
+                        </li>
+                        </ui:fragment>
+                         <ui:fragment rendered="#{valCount.val eq 'BLOCKER'}">
+                        <li>
+                            <a class="photosgurdeep color-black" href="#"> Blocker </a> <a class="color-black pull-right" href=""> #{valCount.count} </a>
+                        </li>
+                        </ui:fragment>
+                         <ui:fragment rendered="#{valCount.val eq 'INFO'}">
+                        <li>
+                            <a class="photosgurdeep color-black" href="#"> Info </a> <a class="color-black pull-right" href=""> #{valCount.count} </a>
+                        </li>
+                        </ui:fragment> 
+                        </c:forEach>
+                    </ul>
+                </li>
+                </ui:fragment>
+                
+                   <ui:fragment rendered="#{facet.property eq 'statuses'}">
+                <li>
+                    <div class="link"><i class="fa fa-area-chart" aria-hidden="true"></i>Status <i class="fa fa-chevron-down"></i></div>
+                    <ul class="submenu">
+                      <c:forEach items="#{facet.values}" var="valCount">
+                    <ui:fragment rendered="#{valCount.val eq 'READY'}">
+                        <li>
+                            <a class="photosgurdeep color-black" href="#"> Ready </a> <a class="color-black pull-right" href=""> #{valCount.count} </a>
+                        </li>
+                        </ui:fragment> 
+                        
+                        <ui:fragment rendered="#{valCount.val eq 'DEPRECATED'}">
+                        <li>
+                            <a class="photosgurdeep color-black" href="#"> Deprecated </a> <a class="color-black pull-right" href=""> #{valCount.count} </a>
+                        </li>
+                        </ui:fragment> 
+                        
+                        <ui:fragment rendered="#{valCount.val eq 'BETA'}">
+                        <li>
+                            <a class="photosgurdeep color-black" href="#"> Beta </a> <a class="color-black pull-right" href=""> #{valCount.count} </a>
+                        </li>
+                        </ui:fragment> 
+                        </c:forEach>
+                    </ul>
+                </li>
+                </ui:fragment>
+                <ui:fragment rendered="#{facet.property eq 'repositories'}">
+                <li>
+                    <div class="link"><i class="fa fa-clone" aria-hidden="true"></i>Repository <i class="fa fa-chevron-down"></i></div>
+                    <ul class="submenu">
+                     <c:forEach items="#{facet.values}" var="valCount">
+                     <ui:fragment rendered="#{valCount.val eq 'squid'}">
+                        <li>
+                            <a class="photosgurdeep color-black" href="#"> SonarAnalyzer Java </a> <a class="color-black pull-right" href=""> #{valCount.count} </a>
+                        </li>
+                        </ui:fragment> 
+                        
+                        <ui:fragment rendered="#{valCount.val eq 'csharpsquid'}">
+                        <li>
+                            <a class="photosgurdeep color-black" href="#"> SonarAnalyzer C# </a> <a class="color-black pull-right" href=""> #{valCount.count} </a>
+                        </li>
+                        </ui:fragment> 
+                        
+                        <ui:fragment rendered="#{valCount.val eq 'javascript'}">
+                        <li>
+                            <a class="photosgurdeep color-black" href="#"> SonarAnalyzer JavaScript </a> <a class="color-black pull-right" href=""> #{valCount.count} </a>
+                        </li>
+                        </ui:fragment> 
+                        
+                        <ui:fragment rendered="#{valCount.val eq 'Pylint'}">
+                        <li>
+                            <a class="photosgurdeep color-black" href="#"> Pylint Python </a> <a class="color-black pull-right" href=""> #{valCount.count} </a>
+                        </li>
+                        </ui:fragment> 
+                        
+                        <ui:fragment rendered="#{valCount.val eq 'php'}">
+                        <li>
+                            <a class="photosgurdeep color-black" href="#"> SonarAnalyzer PHP </a> <a class="color-black pull-right" href=""> #{valCount.count} </a>
+                        </li>
+                        </ui:fragment> 
+                        
+                        <ui:fragment rendered="#{valCount.val eq 'flex'}">
+                        <li>
+                            <a class="photosgurdeep color-black" href="#"> SonarQube Flex </a> <a class="color-black pull-right" href=""> #{valCount.count} </a>
+                        </li>
+                        </ui:fragment> 
+                        
+                        <ui:fragment rendered="#{valCount.val eq 'typescript'}">
+                        <li>
+                            <a class="photosgurdeep color-black" href="#"> SonarAnalyzer TypeScript </a> <a class="color-black pull-right" href=""> #{valCount.count} </a>
+                        </li>
+                        </ui:fragment> 
+                        
+                        <ui:fragment rendered="#{valCount.val eq 'python'}">
+                        <li>
+                            <a class="photosgurdeep color-black" href="#"> SonarAnalyzer TypeScript </a> <a class="color-black pull-right" href=""> #{valCount.count} </a>
+                        </li>
+                        </ui:fragment> 
+                        
+                        <ui:fragment rendered="#{valCount.val eq 'xml'}">
+                        <li>
+                            <a class="photosgurdeep color-black" href="#"> SonarAnalyzer XML </a> <a class="color-black pull-right" href=""> #{valCount.count} </a>
+                        </li>
+                        </ui:fragment> 
+                        <ui:fragment rendered="#{valCount.val eq 'common-cs'}">
+                        <li>
+                            <a class="photosgurdeep color-black" href="#"> Common C# C# </a> <a class="color-black pull-right" href=""> #{valCount.count} </a>
+                        </li>
+                        </ui:fragment> 
+                        </c:forEach>
+                    </ul>
+                </li>
+                </ui:fragment>
+                
+
+                 </c:forEach>
+            </ul>
+           </div>
+
+        <div class="col-sm-9 marg-t-30"> 
+
+
+
+                            
+                            
+                             <div class="table-responsive table-fullwidth">
+                             
+                          
+                 <p:dataTable id="rules" emptyMessage="No Rules found with given criteria"  filteredValue="#{codingRulesBean.filteredRules}"  paginator="true" rows="50" value="#{codingRulesBean.codingRules.rules}"  var="rule" tableStyleClass="table table-striped table-advance table-hover" >
+                 
+			<p:column filterBy="#{rule.name}" sortBy="#{rule.name}" filterMatchMode="contains" colspan="2" headerText="Title">
+					
+              <h:outputLabel value="#{rule.name}" ></h:outputLabel>
+            </p:column>
+            
+             <p:column filterBy="#{rule.langName}" sortBy="#{rule.langName}" filterMatchMode="contains" headerText="Language">
+             <h:outputLabel value="#{rule.langName}"  />
+             
+
+            </p:column>
+            
+             <p:column filterBy="#{rule.type}" sortBy="#{rule.type}" filterMatchMode="contains" headerText="Type">
+            <h:outputLabel value="#{rule.type}"  />
+            </p:column>
+            
+             <p:column filterBy="#{rule.sysTags}"  filterMatchMode="contains" headerText="">
+             <ui:repeat var="item" value="#{rule.sysTags}">  <h:outputLabel value="#{item}"  />
+             <br/></ui:repeat>
+             
+             
+             
+            </p:column>
+              <p:column headerText="">
+           	
+                  <h:commandLink  data-target="#ruleModal" data-toggle="modal" action = "#{codingRulesBean.initEditModal(rule)}" styleClass="fa fa-pencil" >
+                   <f:ajax  listener="#{codingRulesBean.handleEvent}"	onerror="handleAjaxError"  onevent="showRulesModal" render=":editForm"/>
+                  </h:commandLink>
+                        
+              </p:column>
+             
+       
+            
+	</p:dataTable>
+	</div> 	
+    
+                  </div> 
+   
+
+
+
+</div>
+
+ </h:form>
+<ui:include src="ruleModal.xhtml"/>
+
+    
+    
+    
+
+
+
+    <div class="footer_copyright">
+        <div class="container-fluid">
+            <div class="footer_copyright_inner">
+                <div class="pull-left">
+                    <p>
+                        Copyright © Code Checker
+                        <script>document.write(new Date().getFullYear());</script>. All rights reserved.
+                    </p>
+                </div>
+                <div class="pull-right">
+                    <p> Powered  by: <a href="#">RMGS</a> </p>
+                </div>
+            </div>
+        </div>
+    </div>
+        <script src="js/tether.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+
+    <script type="text/javascript" src="js/plugins/knob/jquery.knob.min.js"></script>
+   <script type="text/javascript" src="js/dev-app.js"></script>
+        <script src="js/superslide/jquery.superslides.js"></script>
+        <script src="js/owl.carousel.min.js"></script>
+        <script src="js/wow/wow.min.js"></script>
+    <script src="js/jquery.fullscreen-min.js"></script>
+
+ <script src="js/bootstrap-multiselect.js" type="text/javascript"></script>
+   
+  
+        <!-- Custom JS -->
+    <script src="js/custom.js"></script>
+    
+    
+     <script type="text/javascript">
+    function showRulesModal (uId){ 
+   	 if(uId.status=="success"){
+   		 $("#ruleModal").modal({
+   	      	    backdrop: 'static',
+   	      	    
+   	      	}); 
+   		$(".multiSelect").multiselect();
+   	        
+   	 }
+       
+   }
+
+    function showModal(uId){ 
+   	 if(uId.status=="success"){
+   		$(".multiSelect").multiselect();
+   	 }
+       
+   }
+    
+    function handleAjaxError(u){
+    	if(u.responseText.indexOf("Http Status 901")!=-1){
+    		 window.location="/login.jsf"
+    	}
+    	
+    }
+    function viewTest(data){
+    	
+   	 if(data.type=="error"){
+   		 handleAjaxError(data);
+   		 var msg="Please refer to the administrator";
+   		 var code=200;
+   		 if(data.errorMessage.indexOf("400")!=-1){
+   			 code=400;
+   			 msg="User name Already Exist, Please refer to the administrator for any issues";
+   		 }else if(data.errorMessage.indexOf("404")!=-1 ){
+   			 code=404;
+   			 msg="User Not Found, Please refer to the administrator for any issues"; 
+   		 }
+   		 showGritter("Error",msg);
+   	 } 
+    }
+    </script>
+    
+
+</body>
+
+
+
+
+<!-- Mirrored from p-pixels.com/icou/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 Jan 2018 09:52:00 GMT -->
+</html>

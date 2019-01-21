@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>area > datasets | Chart.js sample</title>
+	<link rel="stylesheet" type="text/css" href="./style.css">
+	<script src="./dist/Chart.bundle.js"></script>
+	<script src="utils.js"></script>
+	<script src="analyser.js"></script>
+</head>
+<body>
+	<div class="content">
+		<div class="wrapper">
+			<canvas id="chart-0"></canvas>
+		</div>
+		
+	</div>
+
+	<script>
+		var presets = window.chartColors;
+		var utils = Samples.utils;
+		var inputs = {
+			min: 20,
+			max: 80,
+			count: 8,
+			decimals: 2,
+			continuity: 1
+		};
+
+		function generateData() {
+			return utils.numbers(inputs);
+		}
+
+		function generateLabels(config) {
+			return utils.months({count: inputs.count});
+		}
+
+		utils.srand(42);
+
+		var data = {
+			labels: [1500,1600,1700,1750,1800,1850,1900,1950,1999,2050],//generateLabels(),
+			datasets: [{
+				backgroundColor: utils.transparentize(presets.red),
+				borderColor: presets.red,
+				data:[86,114,106,106,107,111,133,221,783,2478],//generateData(),
+				hidden: true,
+				label: 'Min',
+				fill: '-1'
+			}, {
+				backgroundColor: utils.transparentize(presets.orange),
+				borderColor: presets.orange,
+				data: [282,350,411,502,635,809,947,1402,3700,5267],
+				label: 'Max',
+				fill: '-1'
+			}, {
+				backgroundColor: utils.transparentize(presets.yellow),
+				borderColor: presets.yellow,
+				 data: [168,170,178,190,203,276,408,547,675,734],
+				hidden: true,
+				label: 'AVG',
+				fill: 1
+			}]
+		};
+
+		var options = {
+			maintainAspectRatio: false,
+			spanGaps: false,
+			elements: {
+				line: {
+					tension: 0.000001
+				}
+			},
+			scales: {
+				yAxes: [{
+					stacked: true
+				}]
+			},
+			plugins: {
+				filler: {
+					propagate: false
+				},
+				samples_filler_analyser: {
+					target: 'chart-analyser'
+				}
+			}
+		};
+
+		
+		var chart = new Chart('chart-0', {
+			type: 'line',
+			data: data,
+			options: options
+		});
+
+		function togglePropagate(btn) {
+			var value = btn.classList.toggle('btn-on');
+			chart.options.plugins.filler.propagate = value;
+			chart.update();
+		}
+
+		function toggleSmooth(btn) {
+			var value = btn.classList.toggle('btn-on');
+			chart.options.elements.line.tension = value? 0.4 : 0.000001;
+			chart.update();
+		}
+
+		function randomize() {
+			chart.data.datasets.forEach(function(dataset) {
+				dataset.data = generateData();
+			});
+			chart.update();
+		}
+	</script>
+</body>
+</html>

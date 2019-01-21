@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+</h:head>
+
+<!-- **********************************************************************************************************************************************************
+      MAIN CONTENT
+      *********************************************************************************************************************************************************** -->
+
+<div class="modal fade" data-backdrop="static" id="qualityProfileModal"
+	tabindex="-1" profile="dialog" aria-labelledby="modalLabel"
+	aria-hidden="true">
+
+	<div class="modal-dialog">
+		<h:form id="copyForm">
+
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+
+					<h:outputLabel class="modal-title" id="modalLabel"
+						value="New Profile" rendered="#{copyModal eq false}"></h:outputLabel>
+					<h:outputLabel class="modal-title" id="modalLabelCopy"
+						value="Copy Profile" rendered="#{copyModal eq true}"></h:outputLabel>
+				</div>
+
+				<div class="modal-body">
+
+					<div class="form-group">
+
+						<h:outputLabel styleClass="col-sm-3 control-label"
+							value="Profile Name" />
+						<div class="col-sm-9">
+							<h:inputText required="true"
+								requiredMessage="Profile Name is mandatory."
+								class="form-control" value="#{qualityProfilesBean.profile.name}"
+								id="name" binding="#{inputProfileName}" />
+							<h:outputText style="color:red" value="*" />
+							<h:message for="name" style="color:red" />
+						</div>
+					</div>
+
+
+
+
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+
+						<h:commandButton
+							oncomplete="if(#{!facesContext.validationFailed}) $('#profileModal').dialog('close'); "
+							id="updatebtn"
+							action="#{qualityProfilesBean.proccessModalAction(inputProfileName.value)}"
+							update=":growl" value="#{copyModal eq false? 'Add' : 'Copy'}"
+							class="btn btn-primary">
+							<f:ajax execute="@form" render="@form" onevent="showModal"
+								onerror="viewTest" />
+						</h:commandButton>
+
+
+
+					</div>
+
+
+				</div>
+			</div>
+		</h:form>
+	</div>
+
+</div>
+
+
+
+</html>

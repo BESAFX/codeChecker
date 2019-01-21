@@ -1,0 +1,730 @@
+﻿<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:secc="http://www.springframework.org/security/tags">
+
+<!-- Mirrored from p-pixels.com/icou/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 Jan 2018 09:50:25 GMT -->
+<h:head>
+<title>Code Checker</title>
+
+<meta charset="UTF-8" />
+<meta name="author" content="p-pixels" />
+<meta http-equiv="x-ua-compatible" content="ie=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<!-- favicon -->
+
+<!-- Custom Template CSS -->
+<link rel="stylesheet" href="css/bootstrap.css" />
+<link rel="stylesheet" href="css/font-awesome.css" />
+<link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="css/owl.carousel.min.css" />
+
+
+</h:head>
+
+
+<body onload=" load_home(event)">
+
+	<!-- Preloader -->
+	<div class="preloader">
+		<div class="spinner spinner-pulse"></div>
+	</div>
+	<!-- / Preloader -->
+
+	<!-- Header -->
+
+	<header>
+	<div class="top-bar">
+
+		<div class="col-sm-12">
+			<div class=" top-number">
+
+				<a class="toggle-fullscreen color-white" href="javascript:;"> <i
+					class="fa fa-arrows" aria-hidden="true"></i>
+				</a> <a class=" color-white" href=""><i class="fa fa-bell"
+					aria-hidden="true"></i> </a>
+
+			</div>
+			<div class="pull-right txt-right ">
+				<a class="color-white" href="">Welcome User </a> <a class="logout"
+					href="/logout" th:href="@{/logout}">Log Out</a>
+			</div>
+
+
+		</div>
+
+	</div>
+	</header>
+
+	<div class="mainmeu-area">
+		<div class="main-menu-wrapper-outer sticky">
+
+			<div class="mainmenu-bg">
+				<div class="main-menu-wrapper main-menu-wrapper-2">
+					<button
+						class="navbar-toggler navbar-toggler-right hidden-lg-up icou-toggler"
+						type="button" data-toggle="collapse" data-target="#icouNavbar"
+						aria-controls="icouNavbar" aria-expanded="false"
+						aria-label="Toggle navigation">
+						<i class="fa fa-bars" aria-hidden="true"></i>
+					</button>
+					<a class="navbar-brand padd-0" href="index.jsf"> <img
+						src="assets/img/LOGO-dark.png" alt="icou-logo" />
+					</a>
+					<nav class="main-menu navbar navbar-toggleable-md ">
+					<div class="collapse navbar-collapse" id="icouNavbar">
+						<ul class="navigation navbar-nav mr-auto mt-2 mt-md-0">
+							<li class="main-menu-link current"><a href="index.jsf">Home</a></li>
+
+							<ui:fragment
+								rendered="#{request.isUserInRole('ROLE_VIEW_PROJECTS_PRIVILEGE')}">
+								<li class="main-menu-link dropdown"><a href="#">Projects</a>
+
+									<ul>
+										<c:forEach items="#{dashbaordBean.dashbaord.components}"
+											var="project">
+											<li><a id="#{project.key}" href="#">#{project.key} -
+													#{project.name}</a></li>
+
+										</c:forEach>
+
+									</ul></li>
+							</ui:fragment>
+							
+							<ui:fragment
+								rendered="#{request.isUserInRole('ROLE_VIEW_QUALITY_PRIVILEGE')}">
+								<li class="main-menu-link "><a href="qualityProfiles.jsf">Quality
+										Profiles</a></li>
+							</ui:fragment>
+
+							<ui:fragment
+								rendered="#{request.isUserInRole('ROLE_VIEW_ADMIN_PRIVILEGE')}">
+								<li class="main-menu-link "><a href="roles.jsf">Administration</a>
+
+								</li>
+							</ui:fragment>
+
+						</ul>
+					</div>
+					</nav>
+					<!-- Search and shopping cart area -->
+
+					<div class="search-area right-80 ">
+
+						<div class="header-search ">
+							<button class="main-menu-search-button">
+								<i class="fa fa-search filter-search"></i>
+							</button>
+							<div class="search-content right-0">
+								<form action="#" class="icou-search-form">
+									<input class="icousearch" type="text" name="icousearch"
+										placeholder="Search..." />
+									<button class="search-content-button" type="submit"
+										id="searchsubmit" value="Search">
+										<i class="fa fa-search filter-search"></i>
+									</button>
+								</form>
+							</div>
+						</div>
+					</div>
+
+					<!-- / Search and shopping cart area -->
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<!-- / Header -->
+
+
+	<div class="page-header-bottom-no-header">
+		<div class="container-fluid no-margin">
+			<div class="breadcrumb-wrapper">
+				<ul class="breadcrumbs">
+					<li><a href="index-2.html">Home</a></li>
+					<li><i class="fa fa-angle-right"></i></li>
+				
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- Navbar -->
+
+	<h:form id="searchD">
+		<div class="full-width">
+
+
+
+			<div class="col-sm-3">
+				<ul id="accordion" class="accordion">
+
+					<li>
+						<div class="link black-g">
+							<i class="fa fa-eraser" aria-hidden="true"></i>clear filter
+						</div>
+
+					</li>
+
+					<c:forEach items="#{dashbaordBean.dashbaord.facets}" var="facet">
+						<ui:fragment rendered="#{facet.property eq 'alert_status'}">
+
+							<li class="default open">
+								<div class="link">
+									<i class="fa fa-cogs" aria-hidden="true"></i>Quality Gate<i
+										class="fa fa-chevron-down"></i>
+								</div>
+								<ul class="submenu">
+									<c:forEach items="#{facet.values}" var="valCount">
+
+
+
+										<ui:fragment rendered="#{valCount.val eq 'OK'}">
+											<li><a class="passed" href="#"> passed </a> <a
+												class="color-black pull-right" href="">
+													#{valCount.count} </a></li>
+										</ui:fragment>
+										<ui:fragment rendered="#{valCount.val eq 'WARN'}">
+											<li><a class="warning" href="#"> warning </a><a
+												class="color-black pull-right" href="">
+													#{valCount.count} </a></li>
+										</ui:fragment>
+										<ui:fragment rendered="#{valCount.val eq 'ERROR'}">
+											<li><a class="failed" href="#"> Failed </a><a
+												class="color-black pull-right" href="">
+													#{valCount.count}</a></li>
+										</ui:fragment>
+									</c:forEach>
+								</ul>
+							</li>
+
+						</ui:fragment>
+						<ui:fragment rendered="#{facet.property eq 'reliability_rating'}">
+							<li>
+								<div class="link">
+									<i class="fa fa-bug fa-lock" aria-hidden="true"></i>Reliability<i
+										class="fa fa-chevron-down"></i>
+								</div>
+								<ul class="submenu">
+									<c:forEach items="#{facet.values}" var="valCount">
+										<ui:fragment rendered="#{valCount.val eq '1'}">
+											<li><a class="passed" href="#"> A </a> <span> and
+													Worse </span> <a class="color-black pull-right" href="">
+													#{valCount.count}</a></li>
+										</ui:fragment>
+										<ui:fragment rendered="#{valCount.val eq '2'}">
+											<li><a class="warning" href="#"> B </a><span> and
+													Worse </span><a class="color-black pull-right" href="">#{valCount.count}
+											</a></li>
+										</ui:fragment>
+										<ui:fragment rendered="#{valCount.val eq '3'}">
+											<li><a class="failed" href="#"> C </a><span> and
+													Worse </span><a class="color-black pull-right" href="">
+													#{valCount.count}</a></li>
+										</ui:fragment>
+										<ui:fragment rendered="#{valCount.val eq '4'}">
+											<li><a class="failed" href="#"> D </a><span> and
+													Worse </span><a class="color-black pull-right" href="">
+													#{valCount.count}</a></li>
+										</ui:fragment>
+										<ui:fragment rendered="#{valCount.val eq '5'}">
+											<li><a class="failed" href="#"> E </a><span> and
+													Worse </span><a class="color-black pull-right" href="">
+													#{valCount.count}</a></li>
+										</ui:fragment>
+									</c:forEach>
+								</ul>
+							</li>
+						</ui:fragment>
+
+						<ui:fragment rendered="#{facet.property eq 'security_rating'}">
+							<li>
+								<div class="link">
+									<i class="fa fa-lock" aria-hidden="true"></i>Security<i
+										class="fa fa-chevron-down"></i>
+								</div>
+								<ul class="submenu">
+									<c:forEach items="#{facet.values}" var="valCount">
+										<ui:fragment rendered="#{valCount.val eq '1'}">
+											<li><a class="passed" href="#"> A </a> <span> and
+													Worse </span> <a class="color-black pull-right" href="">
+													#{valCount.count}</a></li>
+										</ui:fragment>
+										<ui:fragment rendered="#{valCount.val eq '2'}">
+											<li><a class="warning" href="#"> B </a><span> and
+													Worse </span><a class="color-black pull-right" href="">#{valCount.count}
+											</a></li>
+										</ui:fragment>
+										<ui:fragment rendered="#{valCount.val eq '3'}">
+											<li><a class="failed" href="#"> C </a><span> and
+													Worse </span><a class="color-black pull-right" href="">
+													#{valCount.count}</a></li>
+										</ui:fragment>
+										<ui:fragment rendered="#{valCount.val eq '4'}">
+											<li><a class="failed" href="#"> D </a><span> and
+													Worse </span><a class="color-black pull-right" href="">
+													#{valCount.count}</a></li>
+										</ui:fragment>
+										<ui:fragment rendered="#{valCount.val eq '5'}">
+											<li><a class="failed" href="#"> E </a><span> and
+													Worse </span><a class="color-black pull-right" href="">
+													#{valCount.count}</a></li>
+										</ui:fragment>
+									</c:forEach>
+								</ul>
+							</li>
+						</ui:fragment>
+						<ui:fragment rendered="#{facet.property eq 'sqale_rating'}">
+							<li>
+								<div class="link">
+									<i class="fa fa-wrench" aria-hidden="true"></i>Maintainability
+									<i class="fa fa-chevron-down"></i>
+								</div>
+								<ul class="submenu">
+									<c:forEach items="#{facet.values}" var="valCount">
+										<ui:fragment rendered="#{valCount.val eq '1'}">
+											<li><a class="passed" href="#"> A </a> <span> and
+													Worse </span> <a class="color-black pull-right" href="">
+													#{valCount.count} </a></li>
+										</ui:fragment>
+										<ui:fragment rendered="#{valCount.val eq '2'}">
+											<li><a class="warning" href="#"> B </a><span> and
+													Worse </span><a class="color-black pull-right" href="">#{valCount.count}
+											</a></li>
+										</ui:fragment>
+										<ui:fragment rendered="#{valCount.val eq '3'}">
+											<li><a class="failed" href="#"> C </a><span> and
+													Worse </span><a class="color-black pull-right" href="">
+													#{valCount.count}</a></li>
+										</ui:fragment>
+										<ui:fragment rendered="#{valCount.val eq '4'}">
+											<li><a class="failed" href="#"> D </a><span> and
+													Worse </span><a class="color-black pull-right" href="">
+													#{valCount.count}</a></li>
+										</ui:fragment>
+										<ui:fragment rendered="#{valCount.val eq '5'}">
+											<li><a class="failed" href="#"> E </a><span> and
+													Worse </span><a class="color-black pull-right" href="">
+													#{valCount.count}</a></li>
+										</ui:fragment>
+									</c:forEach>
+								</ul>
+							</li>
+						</ui:fragment>
+
+						<ui:fragment rendered="#{facet.property eq 'coverage'}">
+							<li>
+								<div class="link">
+									<i class="fa fa-area-chart" aria-hidden="true"></i>Coverage <i
+										class="fa fa-chevron-down"></i>
+								</div>
+								<ul class="submenu">
+									<c:forEach items="#{facet.values}" var="valCount">
+										<ui:fragment rendered="#{valCount.val eq '80.0-*'}">
+											<li><input class="knob" data-width="20" data-height="20"
+												data-fgColor="#ffba00" value="85" data-thickness=".2" /> <span>
+													&gt;= 80% </span> <a class="color-black pull-right" href="">
+													#{valCount.count} </a></li>
+										</ui:fragment>
+										<ui:fragment rendered="#{valCount.val eq '70.0-80.0'}">
+											<li><input class="knob" data-width="20" data-height="20"
+												data-fgColor="#ffba00" value="80" data-thickness=".2" /> <span>
+													&lt; 80% </span> <a class="color-black pull-right" href="">
+													#{valCount.count} </a></li>
+										</ui:fragment>
+										<ui:fragment rendered="#{valCount.val eq '50.0-70.0'}">
+											<li><input class="knob" data-width="20" data-height="20"
+												data-fgColor="#ffba00" value="70" data-thickness=".2" /> <span>
+													&lt; 70% </span> <a class="color-black pull-right" href="">#{valCount.count}</a>
+											</li>
+										</ui:fragment>
+										<ui:fragment rendered="#{valCount.val eq '30.0-50.0'}">
+											<li><input class="knob" data-width="20" data-height="20"
+												data-fgColor="#ffba00" value="50" data-thickness=".2" /> <span>
+													&lt; 50% </span> <a class="color-black pull-right" href="">
+													#{valCount.count} </a></li>
+										</ui:fragment>
+										<ui:fragment rendered="#{valCount.val eq '*-30.0'}">
+											<li><input class="knob" data-width="20" data-height="20"
+												data-fgColor="#ffba00" value="30" data-thickness=".2" /> <span>
+													&lt; 30% </span> <a class="color-black pull-right" href="">
+													#{valCount.count} </a></li>
+										</ui:fragment>
+										<ui:fragment rendered="#{valCount.val eq 'NO_DATA'}">
+											<li><input class="knob" data-width="20" data-height="20"
+												data-fgColor="#ffba00" value="0" data-thickness=".2" /> <span>
+											</span> <a class="color-black pull-right" href="">#{valCount.count}
+											</a></li>
+										</ui:fragment>
+									</c:forEach>
+								</ul>
+							</li>
+						</ui:fragment>
+						<ui:fragment
+							rendered="#{facet.property eq 'duplicated_lines_density'}">
+							<li>
+								<div class="link">
+									<i class="fa fa-clone" aria-hidden="true"></i>Duplications <i
+										class="fa fa-chevron-down"></i>
+								</div>
+								<ul class="submenu">
+									<c:forEach items="#{facet.values}" var="valCount">
+										<ui:fragment rendered="#{valCount.val eq '20.0-*'}">
+											<li><input class="knob" data-width="20" data-height="20"
+												data-fgColor="#ffba00" value="85" data-thickness=".2" /> <span>
+													&gt;= 80% </span> <a class="color-black pull-right" href="">#{valCount.count}
+											</a></li>
+										</ui:fragment>
+										<ui:fragment rendered="#{valCount.val eq '10.0-20.0'}">
+											<li><input class="knob" data-width="20" data-height="20"
+												data-fgColor="#ffba00" value="80" data-thickness=".2" /> <span>
+													&lt; 80% </span> <a class="color-black pull-right" href="">
+													#{valCount.count} </a></li>
+										</ui:fragment>
+										<ui:fragment rendered="#{valCount.val eq '5.0-10.0'}">
+											<li><input class="knob" data-width="20" data-height="20"
+												data-fgColor="#ffba00" value="70" data-thickness=".2" /> <span>
+													&lt; 70% </span> <a class="color-black pull-right" href="">
+													#{valCount.count} </a></li>
+										</ui:fragment>
+										<ui:fragment rendered="#{valCount.val eq '3.0-5.0'}">
+											<li><input class="knob" data-width="20" data-height="20"
+												data-fgColor="#ffba00" value="50" data-thickness=".2" /> <span>
+													&lt; 50% </span> <a class="color-black pull-right" href="">
+													#{valCount.count} </a></li>
+										</ui:fragment>
+										<ui:fragment rendered="#{valCount.val eq '*-3.0'}">
+											<li><input class="knob" data-width="20" data-height="20"
+												data-fgColor="#ffba00" value="30" data-thickness=".2" /> <span>
+													&lt; 30% </span> <a class="color-black pull-right" href="">
+													#{valCount.count} </a></li>
+
+										</ui:fragment>
+									</c:forEach>
+								</ul>
+							</li>
+						</ui:fragment>
+
+
+						<ui:fragment rendered="#{facet.property eq 'ncloc'}">
+							<li>
+								<div class="link">
+									<i class="fa fa-th	-large" aria-hidden="true"></i>Size <i
+										class="fa fa-chevron-down"></i>
+								</div>
+								<ul class="submenu">
+									<c:forEach items="#{facet.values}" var="valCount">
+
+
+										<ui:fragment rendered="#{valCount.val eq '*-1000.0'}">
+											<li class="photosgurdeep"><span> &gt;= 1k </span> <a
+												class="color-black pull-right" href="">#{valCount.count}
+											</a></li>
+										</ui:fragment>
+										<ui:fragment rendered="#{valCount.val eq '1000.0-10000.0'}">
+											<li class="photosgurdeep"><span> &lt; 2k </span> <a
+												class="color-black pull-right" href="">
+													#{valCount.count} </a></li>
+										</ui:fragment>
+										<ui:fragment rendered="#{valCount.val eq '10000.0-100000.0'}">
+											<li class="photosgurdeep"><span> &lt; 10k </span> <a
+												class="color-black pull-right" href="">
+													#{valCount.count} </a></li>
+										</ui:fragment>
+										<ui:fragment rendered="#{valCount.val eq '100000.0-500000.0'}">
+											<li class="photosgurdeep"><span> &lt; 100k </span> <a
+												class="color-black pull-right" href="">
+													#{valCount.count} </a></li>
+										</ui:fragment>
+										<ui:fragment rendered="#{valCount.val eq '500000.0-*'}">
+											<li class="photosgurdeep"><span> &lt; 100k </span> <a
+												class="color-black pull-right" href="">
+													#{valCount.count} </a></li>
+										</ui:fragment>
+									</c:forEach>
+								</ul>
+							</li>
+						</ui:fragment>
+
+						<ui:fragment rendered="#{facet.property eq 'languages'}">
+							<li>
+								<div class="link">
+									<i class="fa fa-link" aria-hidden="true"></i>Language <i
+										class="fa fa-chevron-down"></i>
+								</div>
+								<ul class="submenu">
+									<c:forEach items="#{facet.values}" var="valCount">
+										<li class="photosgurdeep"><span> #{valCount.val} </span>
+											<a class="color-black pull-right" href="">
+												#{valCount.count} </a></li>
+									</c:forEach>
+								</ul>
+							</li>
+						</ui:fragment>
+					</c:forEach>
+				</ul>
+			</div>
+
+			<div class="col-sm-9 marg-t-30">
+
+				<div class="all-search">
+					<div class="about-form all-form-padd">
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="form-group form-md-line-input ">
+									<div class="input-icon left">
+										<select type="text" class="form-control minimal"
+											placeholder="Right icon">
+											<option>OverAll Status</option>
+											<option>Leak</option>
+											<option>Risk</option>
+
+											<option>Security</option>
+											<option>Mantainability</option>
+											<option>Coverage</option>
+											<option>Duplications</option>
+										</select> <label for="form_control_1">Perspective</label> <span
+											class="help-block">Select Your Perspective...</span> <i
+											class="fa fa-bug " aria-hidden="true"></i>
+									</div>
+								</div>
+							</div>
+
+
+							<div class="col-sm-4">
+								<div class="form-group form-md-line-input ">
+									<div class="input-icon left">
+										<select type="text" class="form-control minimal"
+											placeholder="Right icon">
+											<option>OverAll Status</option>
+											<option>Leak</option>
+											<option>Risk</option>
+
+											<option>Security</option>
+											<option>Mantainability</option>
+											<option>Coverage</option>
+											<option>Duplications</option>
+										</select> <label for="form_control_1">Sort By</label> <span
+											class="help-block">Select Your Perspective...</span> <i
+											class="fa fa-long-arrow-down" aria-hidden="true"></i>
+									</div>
+								</div>
+							</div>
+
+
+							<div class="col-sm-4">
+								<div class="form-group form-md-line-input ">
+									<div class="input-icon left">
+
+										<input type="text" class="form-control"
+											placeholder="Search By Project Name Or Key"
+											name="googlesearch" />
+										
+
+
+
+
+										<label for="form_control_1">Search</label> <span
+											class="help-block">Please Enter Project Name Or Key...</span>
+										<i class="fa fa-search" aria-hidden="true"></i>
+									</div>
+								</div>
+							</div>
+
+
+						</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+					</div>
+				</div>
+			
+							
+							<h:commandLink class="btn btn-primary" title="+" type="button"  >Add New Project
+				          <f:ajax  listener="#{dashbaordBean.openModalForNewProject}"      onevent="showProjectModal"   render=":editProjectForm"/>
+				                 </h:commandLink>
+				                 <br/>
+				<h:panelGroup id="divData" layout="block">
+
+					<ui:include src="projects.xhtml" />
+				</h:panelGroup>
+
+			</div>
+
+
+
+
+		</div>
+		
+		
+		<div class="col-md-1  mb">
+                      		<div class="white-panel pn">
+                      			<div class="white-header">
+						  			<h5>Bugs</h5>
+                      			</div>
+								<div id="alarmCatLoading" > <img src="assets/img/loading.gif" class="imgLoad" /></div>
+	                      		<div id="JiraBugsChart" class="graph"></div>
+                      		</div>
+                      	</div>
+
+	</h:form>
+	
+	
+<ui:include src="projectModal.xhtml"></ui:include>
+<ui:include src="yascaModal.xhtml"></ui:include>
+<ui:include src="licenceModal.xhtml"></ui:include>
+
+
+
+
+
+
+
+	<div class="footer_copyright">
+		<div class="container-fluid">
+			<div class="footer_copyright_inner">
+				<div class="pull-left">
+					<p>
+						Copyright © Code Checker
+						<script>document.write(new Date().getFullYear());</script>
+						. All rights reserved.
+					</p>
+				</div>
+				<div class="pull-right">
+					<p>
+						Powered by: <a href="#">RMGS</a>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="assets/datetimepicker-master/jquery.js"></script>
+	<script type="text/javascript" src="assets/js/moment.js"></script>
+	
+	<script type="text/javascript" src="assets/js/bootstrap/bootstrap-datetimepicker.min.js"></script>
+	
+	<script src="assets/js/bootstrap.min.js"></script>
+	<script class="include" type="text/javascript"
+		src="assets/js/jquery.dcjqaccordion.2.7.js"></script>
+	<script src="assets/js/jquery.scrollTo.min.js"></script>
+	<script src="assets/js/jquery.nicescroll.js" type="text/javascript"></script>
+
+
+
+	<!--common script for all pages-->
+	<script src="assets/js/chart-master/loader.js"></script>
+	<script
+		src="assets/js/raphael-min.js"></script>
+	<script src="assets/js/morris-0.4.3.min.js"></script>
+	<script src="assets/js/common-scripts.js"></script>
+	<script src="assets/js/summary-charts.js"></script>
+	<script type="text/javascript" src="assets/js/gritter/js/jquery.gritter.js"></script>
+    <script type="text/javascript" src="assets/js/gritter-conf.js"></script>
+
+
+
+	<!-- Custom JS -->
+	<script src="js/custom.js"></script>
+	<script type="text/javascript">
+	
+    
+    
+
+ function showProjectModal(uId){ 
+      	 if(uId.status=="success"){
+      		 $("#projectModal").modal({
+      	      	    backdrop: 'static',
+      	      	    
+      	      	}); 
+      	
+      		
+      	        
+      	 }
+          
+      } 
+    
+     
+
+    function showModal(uId){ 
+   	 if(uId.status=="success"){
+   		//$(".multiSelect").multiselect();
+   		
+   	 }
+       
+   }
+    
+    function handleAjaxError(u){
+    	if(u.responseText.indexOf("Http Status 901")!=-1){
+    		 window.location="/login.jsf"
+    	}
+    	
+    }
+    function viewTest(data){
+    	
+   	 if(data.type=="error"){
+   		 handleAjaxError(data);
+   		 var msg="Please refer to the administrator";
+   		 var code=200;
+   		 if(data.errorMessage.indexOf("400")!=-1){
+   			 code=400;
+   			 msg="Profile Name Already Exist, Please refer to the administrator for any issues";
+   		 }else if(data.errorMessage.indexOf("404")!=-1 ){
+   			 code=404;
+   			 msg="User Not Found, Please refer to the administrator for any issues"; 
+   		 }
+   		 showGritter("Error",msg);
+   	 } 
+    }
+
+    function showLicenceCheck(button ){
+			button.innerHTML="processing...";
+			$("#licenceModal").modal({
+ 	      	    backdrop: 'static',
+ 	      	    
+ 	      	}); 
+	 	
+        
+        }
+
+    function showYascaModal(){ 
+    	
+
+ 	 	 $("#yascaModal").modal({
+     	      	    backdrop: 'static',
+     	      	    
+     	      	}); 
+ 	 	
+         
+     } 
+   
+    
+    </script>
+    
+    </body>
+
+
+
+
+<!-- Mirrored from p-pixels.com/icou/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 Jan 2018 09:52:00 GMT -->
+</html>

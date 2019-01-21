@@ -1,0 +1,83 @@
+﻿<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+xmlns:secc="http://www.springframework.org/security/tags"
+		 >
+
+   <c:forEach items="#{dashbaordBean.projectMeasure}" var="pMeasure">
+            <div class="project-detail">
+                <h4 class="project-title">
+               <h:commandLink rendered="#{pMeasure.alertStatus eq null}"
+								
+								data-target="#projectModal" data-toggle="modal"
+								action="#{dashbaordBean.initEditModal(pMeasure)}"
+								>#{pMeasure.project.name}  
+								<f:ajax listener="#{dashbaordBean.handleEvent}"
+									onerror="handleAjaxError" onevent="showProjectModal"
+									render=":editProjectForm" />
+							</h:commandLink>
+               <h:commandLink rendered="#{pMeasure.alertStatus ne null}"
+								
+								data-target="#projectModal" data-toggle="modal"
+								action="#{dashbaordBean.initEditModal(pMeasure)}"
+								>#{pMeasure.project.name}  
+								<f:ajax listener="#{dashbaordBean.handleEvent}"
+									onerror="handleAjaxError" onevent="showProjectModal"
+									render=":editProjectForm" />
+							</h:commandLink>
+                <ui:fragment rendered="#{not (pMeasure.alertStatus eq null)}">
+                 <a class="passed link" href="#">   #{pMeasure.alertStatus} </a></ui:fragment> 
+                
+                </h4>
+                <ui:fragment rendered="#{not (pMeasure.alertStatus eq null)}">
+                <div class="col-sm-2 border-right padd-25">
+                    <i class="fa fa-bug orange" aria-hidden="true"></i>
+                    <h2 class="m-0 counter"> #{pMeasure.bugs}</h2>
+                    <h4>Bugs</h4>
+                </div>
+               
+                <div class="col-sm-2 border-right padd-25">
+
+                    <i class="fa fa-unlock-alt purple" aria-hidden="true"></i>
+                    <h2 class="m-0 counter"> #{pMeasure.vulnerabilities}</h2>
+                    <h4>Vulnerabilities</h4>
+                </div>
+
+                <div class="col-sm-2 border-right padd-25">
+                    <i class="fa fa-dot-circle-o info" aria-hidden="true"></i>
+                    <h2 class="m-0 counter"> #{pMeasure.codeSmell}</h2>
+                    <h4>Code Smells</h4>
+                </div>
+
+				<div class="col-sm-2 border-right padd-25">
+                    <i class="fa fa-dot-circle-o info" aria-hidden="true"></i>
+                    <h2 class="m-0 counter"> #{pMeasure.coverage}</h2>
+                    <h4>Coverage</h4>
+                </div>
+                <div class="col-sm-2 padd-25">
+
+                    <i class="fa fa-clone darkpink" aria-hidden="true"></i>
+                    <h2 class="m-0 counter"> #{pMeasure.duplicatedLineDensity}</h2>
+                    <h5>Duplication</h5>
+
+                </div>
+ </ui:fragment>
+ <ui:fragment rendered="#{pMeasure.alertStatus eq null}">
+ <div class="col-sm-3 border-right padd-25">
+  <h4> Project is not analyzed yet.</h4>
+ </div>
+ </ui:fragment>
+            </div> 
+            </c:forEach>
+           
+               
+               </html>

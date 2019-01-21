@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+
+</head>
+
+<!-- **********************************************************************************************************************************************************
+      MAIN CONTENT
+      *********************************************************************************************************************************************************** -->
+
+<div class="modal fade" data-backdrop="static" id="licenceModal"
+	tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+	aria-hidden="true">
+
+<div class="modal-dialog">
+		<h:form id="licence">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+
+					<h:outputLabel class="modal-title"
+						value="Licence"></h:outputLabel>
+
+
+				</div>
+
+				<div  class="modal-body" >
+<div id="includedContent" ></div>
+
+			
+
+
+				</div>
+			</div>
+		</h:form>
+	</div>
+
+     <div id="licenceContent"></div>
+ 
+</div>
+
+
+
+</html>

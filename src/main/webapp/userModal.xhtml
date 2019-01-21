@@ -1,0 +1,194 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+</head>
+
+<!-- **********************************************************************************************************************************************************
+      MAIN CONTENT
+      *********************************************************************************************************************************************************** -->
+
+<div class="modal fade" data-backdrop="static" id="userModal"
+	tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+	aria-hidden="true">
+
+	<div class="modal-dialog">
+		<h:form id="editForm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+
+					<h:outputLabel class="modal-title"
+						value="#{editModal eq false? 'Add User' : 'Edit User'}"></h:outputLabel>
+
+				</div>
+
+				<div class="modal-body">
+					<f:event listener="#{usersBean.customValidators}"
+						type="postValidate" />
+
+					<div class="form-group">
+
+						<h:outputLabel styleClass="col-sm-3 control-label"
+							value="User Name" />
+						<div class="col-sm-9">
+							<h:inputText required="true" requiredMessage="Mandatory Field !!"
+								class="form-control" value="#{usersBean.user.username}"
+								id="username" />
+							<h:outputText style="color:red ;" value="*" />
+							<h:message for="username" style="color:red"></h:message>
+						</div>
+					</div>
+
+					<ui:fragment rendered="#{editModal eq false}">
+
+						<div class="form-group">
+
+							<h:outputLabel styleClass="col-sm-3 control-label"
+								value="Password" />
+							<div class="col-sm-9">
+								<h:inputSecret autocomplete="off" required="true"
+									requiredMessage="Mandatory Field !!" class="form-control"
+									value="#{usersBean.user.password}"
+									validatorMessage="Your Password is not valid, Minimum six characters, at least one letter and one number"
+									id="password">
+									<f:validateRegex
+										pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$" />
+								</h:inputSecret>
+								<h:outputText styleClass="red-color" value="*" />
+								<h:message for="password" style="color:red"></h:message>
+							</div>
+						</div>
+						<div class="form-group">
+
+							<h:outputLabel styleClass="col-sm-3 control-label"
+								value="Confirm Password" />
+							<div class="col-sm-9">
+								<h:inputSecret required="true"
+									requiredMessage="Mandatory Field !!" class="form-control"
+									value="#{usersBean.user.confirmPassword}"
+									validatorMessage="Your Password is not valid, Minimum six characters, at least one letter and one number"
+									id="confirmPassword">
+									<f:validateRegex
+										pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$" />
+								</h:inputSecret>
+								<h:outputText styleClass="red-color" value="*" />
+								<h:message for="confirmPassword" style="color:red"></h:message>
+							</div>
+						</div>
+					</ui:fragment>
+
+					<div class="form-group">
+						<h:outputLabel styleClass="col-sm-3 control-label "
+							value="First Name" />
+
+						<div class="col-sm-9">
+
+							<h:inputText required="true" requiredMessage="Mandatory Field !!"
+								class="form-control"
+								value="#{usersBean.user.userDatils.firstName}" id="firstName" />
+							<h:outputText styleClass="red-color" value="*" />
+							<h:message for="firstName" style="color:red"></h:message>
+						</div>
+					</div>
+
+
+					<div class="form-group">
+						<h:outputLabel styleClass="col-sm-3 control-label "
+							value="Last Name" />
+						<div class="col-sm-9">
+							<h:inputText required="true" requiredMessage="Mandatory Field !!"
+								class="form-control"
+								value="#{usersBean.user.userDatils.lastName}" id="lastName" />
+							<h:outputText styleClass="red-color" value="*" />
+							<h:message for="lastName" style="color:red"></h:message>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<h:outputLabel styleClass="col-sm-3 control-label " value="Mobile" />
+						<div class="col-sm-9">
+							<!-- <h:outputText style="color:red ; width:20% !important ; "  value="*" /> -->
+							<h:inputText required="true" requiredMessage="Mandatory Field !!"
+								class="form-control" value="#{usersBean.user.userDatils.mobile}"
+								id="mobile">
+							</h:inputText>
+
+							<h:outputText styleClass="red-color" value="*" />
+							<h:message for="mobile" style="color:red"></h:message>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<h:outputLabel styleClass="col-sm-3 control-label " value="E-mail" />
+						<div class="col-sm-9">
+							<!-- <h:outputText style="color:red ; width:20% !important ; "  value="*" /> -->
+							<h:inputText required="true" requiredMessage="Mandatory Field !!"
+								class="form-control" value="#{usersBean.user.userDatils.email}"
+								id="email" validatorMessage="Your email is not valid">
+								<f:validateRegex
+									pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+							</h:inputText>
+							<h:outputText styleClass="red-color" value="*" />
+							<h:message for="email" style="color:red"></h:message>
+						</div>
+					</div>
+
+					<div class="form-group">
+
+						<h:outputLabel styleClass="col-sm-3 control-label" value="Roles" />
+						<div class="col-sm-9">
+
+
+							<h:selectManyListbox class="multiSelect"
+								value="#{usersBean.user.selectedRoles}">
+								<f:selectItems value="#{usersBean.roles}" var="role"
+									itemLabel="#{role.name}" itemValue="#{role.id}" />
+							</h:selectManyListbox>
+						</div>
+					</div>
+
+
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+						<h:commandButton
+							oncomplete="if (#{!facesContext.validationFailed}) $('#userModal').dialog('close'); $(.multiSelect').multiSelect();"
+							id="updatebtn" action="#{usersBean.proccessModalAction}"
+							value="#{editModal eq false? 'Add' : 'Update'}"
+							class="btn btn-primary">
+							<f:ajax execute="@form" render="@form" onevent="showModal"
+								onerror="viewTest" />
+						</h:commandButton>
+
+						<!-- <h:outputScript rendered="#{not empty param[addbtn] and not facesContext.validationFailed}">
+          						      <script language="JavaScript" type="text/javascript">
+    									$("#shipmentModal").dialog("close");
+    									</script>
+									</h:outputScript> -->
+
+
+					</div>
+
+
+				</div>
+			</div>
+		</h:form>
+	</div>
+
+</div>
+
+
+
+</html>

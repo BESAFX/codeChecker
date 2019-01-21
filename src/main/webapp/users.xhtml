@@ -1,0 +1,349 @@
+﻿<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+		 >
+
+<!-- Mirrored from p-pixels.com/icou/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 Jan 2018 09:50:25 GMT -->
+<h:head>
+    <title>Code Checker</title>
+    <meta charset="UTF-8"/>
+    <meta name="author" content="p-pixels"/>
+    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- favicon -->
+
+    <!-- Custom Template CSS -->
+    <link rel="stylesheet" href="css/bootstrap.css"/>
+    <link rel="stylesheet" href="css/font-awesome.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/owl.carousel.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/jquery.gritter.css" />
+   <link href="css/multi-select.css" rel="stylesheet" type="text/css" />
+ 
+</h:head>
+
+<body onload="#{usersBean.init()}">
+    
+        <!-- Preloader -->
+        <div class="preloader">
+            <div class="spinner spinner-pulse"></div>
+        </div>
+        <!-- / Preloader -->
+
+        <!-- Header -->
+
+    <header>
+        <div class="top-bar">
+
+                     <div class="col-sm-12">
+                        <div class=" top-number">
+                 
+                     <a class="toggle-fullscreen color-white" href="javascript:;"> <i class="fa fa-arrows" aria-hidden="true"></i> </a>
+                            <a class=" color-white" href=""><i class="fa fa-bell" aria-hidden="true"></i> </a>
+
+                        </div>
+                        <div class="pull-right txt-right ">
+                            <a class="color-white" href="">Welcome User </a>
+                           <a class="logout" href="/logout" th:href="@{/logout}">Log
+					Out</a>
+                        </div>
+                        
+                      
+                    </div>
+      
+        </div>
+    </header>
+
+    <div class="mainmeu-area">
+        <div class="main-menu-wrapper-outer sticky">
+           
+                <div class="mainmenu-bg">
+                    <div class="main-menu-wrapper main-menu-wrapper-2">
+                        <button class="navbar-toggler navbar-toggler-right hidden-lg-up icou-toggler" type="button" data-toggle="collapse" data-target="#icouNavbar" aria-controls="icouNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                            <i class="fa fa-bars" aria-hidden="true"></i>
+                        </button>
+                        <a class="navbar-brand padd-0" href="index-2.html">
+                            <img src="assets/img/logo.PNG"  alt="icou-logo"/>
+                        </a>
+                        <nav class="main-menu navbar navbar-toggleable-md ">
+                            <div class="collapse navbar-collapse" id="icouNavbar">
+                                <ul class="navigation navbar-nav mr-auto mt-2 mt-md-0">
+                                    <li class="main-menu-link "><a href="index.jsf">Home</a></li>
+                                  <ui:fragment rendered="#{request.isUserInRole('ROLE_VIEW_PROJECTS_PRIVILEGE')}">
+                                  <li class="main-menu-link dropdown">
+                                        <a href="#">Projects</a>
+
+                                        <ul>
+                                         <c:forEach items="#{dashbaordBean.dashbaord.components}" var="project">
+                                            <li><a id="#{project.key}" href="#">#{project.key} - #{project.name}</a></li>
+                                           
+                                            </c:forEach>
+                               
+                                        </ul>
+                                        
+                                    </li>
+                                    </ui:fragment>
+                                     <ui:fragment rendered="#{request.isUserInRole('ROLE_VIEW_ALL_ISSUES_PRIVILEGE')}">
+                                    <li class="main-menu-link ">
+                                        <a href="issues.jsf">issues</a>
+                                        
+                                    </li>
+                                    </ui:fragment>
+                                    <ui:fragment rendered="#{request.isUserInRole('ROLE_VIEW_RULES_PRIVILEGE')}">
+                                    <li class="main-menu-link ">
+                                        <a href="rules.jsf">Rules</a>
+                                        
+                                    </li>
+                                    </ui:fragment>
+                                     <ui:fragment rendered="#{request.isUserInRole('ROLE_VIEW_QUALITY_PRIVILEGE')}">
+                                    <li class="main-menu-link ">
+                                        <a href="qualityProfiles.jsf">Quality Profiles</a>
+                                        
+                                    </li>
+                                    </ui:fragment>
+                                    
+                                     <ui:fragment rendered="#{request.isUserInRole('ROLE_VIEW_ADMIN_PRIVILEGE')}">
+                                     <li class="main-menu-link current">
+                                        <a href="roles.jsf">Administration</a>
+                                        
+                                    </li>
+                                    </ui:fragment>
+                                    
+                                </ul>
+                            </div>
+                        </nav>
+                        <!-- Search and shopping cart area -->
+
+                        <div class="search-area right-80 ">
+                            
+                            <div class="header-search ">
+                                <button class="main-menu-search-button">
+                                    <i class="fa fa-search filter-search"></i>
+                                </button>
+                                <div class="search-content right-0">
+                                    <form action="#" class="icou-search-form">
+                                        <input class="icousearch" type="text" name="icousearch" placeholder="Search..."/>
+                                        <button class="search-content-button" type="submit" id="searchsubmit" value="Search">
+                                            <i class="fa fa-search filter-search"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- / Search and shopping cart area -->
+                    </div>
+                </div>
+        
+        </div>
+    </div>
+        <!-- / Header -->
+
+  
+        <div class="page-header-bottom-no-header">
+            <div class="container-fluid no-margin">
+                <div class="breadcrumb-wrapper">
+                    <ul class="breadcrumbs">
+                        <li><a href="index-2.html">Home</a></li>
+                        <li><i class="fa fa-angle-right"></i></li>
+                    </ul>
+                </div>
+            </div>
+    </div>
+        <!-- Navbar -->
+        
+<h:form id="searchD">
+    <div class="full-width">
+      
+
+
+       <div class="col-sm-3">
+            <ul id="accordion" class="accordion">
+
+              <li class="default " >
+                    <div class="link"><i class="fa fa-cogs" aria-hidden="true"></i> <a href="roles.jsf">Roles</a> </div>
+             
+                </li>
+                
+                <li class="default selected" >
+                    <div class="link"><i class="fa fa-cogs" aria-hidden="true"></i> <a href="users.jsf">Users</a><span class="selected-arrow"></span></div>
+             
+                </li>
+                
+                
+               
+            </ul>
+           </div>
+
+        <div class="col-sm-9 marg-t-30"> 
+
+
+                                 <h:commandLink class="btn add-modal  btn-circle btn-lg" title="+" type="button"  >+
+				                   <f:ajax  listener="#{usersBean.openModalForNewUser}"	  onevent="showUsersModal"   render=":editForm"/>
+				                 </h:commandLink>
+				        
+<h:panelGroup id="divData" layout="block">
+   
+             <h:form>
+                            
+                            
+                             <div class="table-responsive table-fullwidth">
+                             
+                          
+                 <p:dataTable  emptyMessage="No Users found with given criteria"  filteredValue="#{usersBean.filteredUsers}"  paginator="true" rows="20" value="#{usersBean.users}"  var="user" tableStyleClass="table table-striped table-advance table-hover" >
+            <p:column filterBy="#{user.id}" sortBy="#{user.id}" filterMatchMode="contains" headerText="ID">
+					
+              <h:outputLabel value="#{user.id}" ></h:outputLabel>
+            </p:column>     
+			<p:column filterBy="#{user.username}" sortBy="#{user.username}" filterMatchMode="contains" headerText="User Name">
+					
+              <h:outputLabel value="#{user.username}" ></h:outputLabel>
+            </p:column>
+            
+             <p:column filterBy="#{user.userDatils.firstName}" sortBy="#{user.userDatils.firstName}" filterMatchMode="contains" headerText="First Name">
+             <h:outputLabel value="#{user.userDatils.firstName}"  />
+            </p:column>
+            
+             <p:column filterBy="#{user.userDatils.lastName}" sortBy="#{user.userDatils.lastName}" filterMatchMode="contains" headerText="Last Name">
+             <h:outputLabel value="#{user.userDatils.lastName}"  />
+            </p:column>
+            
+            <p:column filterBy="#{user.userDatils.email}" sortBy="#{user.userDatils.email}" filterMatchMode="contains" headerText="Email">
+             <h:outputLabel value="#{user.userDatils.email}"  />
+            </p:column>
+            
+            <p:column filterBy="#{user.userDatils.mobile}" sortBy="#{user.userDatils.mobile}" filterMatchMode="contains" headerText="Mobile">
+             <h:outputLabel value="#{user.userDatils.mobile}"  />
+            </p:column>
+            
+              <p:column filterBy="#{user.userDatils.hourlyRate}" sortBy="#{user.userDatils.hourlyRate}" filterMatchMode="contains" headerText="Hourly Rate">
+             <h:outputLabel value="#{user.userDatils.hourlyRate}"  />
+            </p:column>
+             <p:column headerText="">
+           		<!-- <f:facet name="header">Edit</f:facet> -->          
+                  <h:commandLink  data-target="#roleModal" data-toggle="modal" action = "#{usersBean.initEditModal(user)}" styleClass="fa fa-pencil" >
+                   <f:ajax  listener="#{usersBean.handleEvent}"	onerror="handleAjaxError"  onevent="showUsersModal" render=":editForm"/>
+                  </h:commandLink>
+                  <span></span>
+                    <h:commandLink   action = "#{usersBean.deleteAction(user)}" styleClass="fa fa-trash-o" >
+                   <f:ajax onevent="showConfirmModal" onerror="handleAjaxError"  />
+                  </h:commandLink>              
+              </p:column>
+            
+            
+             
+       
+            
+	</p:dataTable>
+	</div> 	
+     </h:form>
+ </h:panelGroup>
+                  
+                  </div> 
+   
+
+
+
+</div>
+
+ </h:form>
+
+
+    
+    
+    <ui:include src="userConfirmModal.xhtml"/>
+ <ui:include src="userModal.xhtml"/>
+
+
+    <div class="footer_copyright">
+        <div class="container-fluid">
+            <div class="footer_copyright_inner">
+                <div class="pull-left">
+                    <p>
+                        Copyright © Code Checker
+                        <script>document.write(new Date().getFullYear());</script>. All rights reserved.
+                    </p>
+                </div>
+                <div class="pull-right">
+                    <p> Powered  by: <a href="#">RMGS</a> </p>
+                </div>
+            </div>
+        </div>
+    </div>
+        <script src="js/tether.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+
+    <script type="text/javascript" src="js/plugins/knob/jquery.knob.min.js"></script>
+   <script type="text/javascript" src="js/dev-app.js"></script>
+        <script src="js/superslide/jquery.superslides.js"></script>
+        <script src="js/owl.carousel.min.js"></script>
+        <script src="js/wow/wow.min.js"></script>
+    <script src="js/jquery.fullscreen-min.js"></script>
+    	<script type="text/javascript" src="js/jquery.gritter.js"></script>
+   <script type="text/javascript" src="js/gritter-conf.js"></script>
+ <script src="js/jquery.multi-select.js" type="text/javascript"></script>
+  
+  
+        <!-- Custom JS -->
+    <script src="js/custom.js"></script>
+    <script type="text/javascript">
+    function showUsersModal(uId){ 
+   	 if(uId.status=="success"){
+   		 $("#userModal").modal({
+   	      	    backdrop: 'static',
+   	      	    
+   	      	}); 
+   		$(".multiSelect").multiSelect();
+   	        
+   	 }
+       
+   }
+
+    function showModal(uId){ 
+   	 if(uId.status=="success"){
+   		$(".multiSelect").multiSelect();
+   	 }
+       
+   }
+    
+    function handleAjaxError(u){
+    	if(u.responseText.indexOf("Http Status 901")!=-1){
+    		 window.location="/login.jsf"
+    	}
+    	
+    }
+    function viewTest(data){
+    	
+   	 if(data.type=="error"){
+   		 handleAjaxError(data);
+   		 var msg="Please refer to the administrator";
+   		 var code=200;
+   		 if(data.errorMessage.indexOf("400")!=-1){
+   			 code=400;
+   			 msg="User name Already Exist, Please refer to the administrator for any issues";
+   		 }else if(data.errorMessage.indexOf("404")!=-1 ){
+   			 code=404;
+   			 msg="User Not Found, Please refer to the administrator for any issues"; 
+   		 }
+   		 showGritter("Error",msg);
+   	 } 
+    }
+    </script>
+
+</body>
+
+
+
+
+<!-- Mirrored from p-pixels.com/icou/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 14 Jan 2018 09:52:00 GMT -->
+</html>
